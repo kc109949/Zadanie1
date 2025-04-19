@@ -1,15 +1,24 @@
-def klasyfikacja(temp, wilgotnosc):
-    if temp > 30 and wilgotnosc > 70:
-        return "Upał i duża wilgotność – możliwe burze."
-    elif temp < 0 and wilgotnosc < 40:
-        return "Mróz i sucho – możliwe oblodzenia."
+def klasyfikuj_bmi(waga_kg: float, wzrost_cm: float) -> str:
+    # Przelicz wzrost na metry
+    wzrost_m = wzrost_cm / 100
+    if wzrost_m <= 0:
+        return "Nieprawidłowy wzrost."
+    bmi = waga_kg / (wzrost_m ** 2)
+    
+    if bmi < 18.5:
+        return f"Niedowaga (BMI={bmi:.1f})"
+    elif bmi < 25:
+        return f"Waga prawidłowa (BMI={bmi:.1f})"
+    elif bmi < 30:
+        return f"Nadwaga (BMI={bmi:.1f})"
     else:
-        return "Warunki normalne."
+        return f"Otyłość (BMI={bmi:.1f})"
 
 if __name__ == "__main__":
     try:
-        temp = float(input("Podaj temperaturę (°C): "))
-        wilgotnosc = float(input("Podaj wilgotność (%): "))
-        print("Decyzja:", klasyfikacja(temp, wilgotnosc))
+        waga = float(input("Podaj wagę w kilogramach (kg): "))
+        wzrost = float(input("Podaj wzrost w centymetrach (cm): "))
+        wynik = klasyfikuj_bmi(waga, wzrost)
+        print("Wynik klasyfikacji:", wynik)
     except ValueError:
-        print("Podano niepoprawne dane.")
+        print("Błąd: proszę wpisać poprawne liczby.")
